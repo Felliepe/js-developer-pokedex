@@ -1,5 +1,4 @@
-
-
+// Função para verificar se existem parâmetros de URL e carregar detalhes do Pokémon
 function hasUrlParams(){
     const params = new URLSearchParams(window.location.search);
 
@@ -9,17 +8,18 @@ function hasUrlParams(){
 
     loadPokemonDetails(params.get('pokemon'))
 }
-
+// Função para carregar detalhes do Pokémon de forma assíncrona
 async function loadPokemonDetails(pokemonName){
     try{
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`);
         const data = await response.json();
 
-        //detalhes
+        // Extraindo detalhes da resposta
         const name = data.name;
         const type = data.types[0].type.name;
         const image = data.sprites.other.dream_world.front_default;
 
+        // Atualizando o conteúdo HTML com detalhes do Pokémon
         document.querySelector('.content').classList.add(type)
         document.querySelector('.pokemon_title').textContent = capitalizarPrimeiraLetra(name)
         document.querySelector('.pokemon_photo').src = image
@@ -36,33 +36,27 @@ async function loadPokemonDetails(pokemonName){
         console.log("Erro ao obter detalhes do pokemon: ", error);
     }
 }
-
+// Função para alterar o conteúdo com base no índice de navegação
 function changeContent(index) {
-    // Oculta todos os conteúdos
     for (let i = 1; i <= 4; i++) {
         document.getElementById('content' + i).style.display = 'none';
     }
 
-    // Remove a classe 'active' de todos os links
     const links = document.getElementsByClassName('nav-link');
     for (let i = 0; i < links.length; i++) {
         links[i].classList.remove('active');
     }
 
-    // Exibe o conteúdo do link clicado
     document.getElementById('content' + (index + 1)).style.display = 'block';
 
-    // Adiciona a classe 'active' ao link clicado
     links[index].classList.add('active');
 }
-
+// Função para colocar a primeira letra de uma string em maiúscula
 function capitalizarPrimeiraLetra(str) {
-    // Verifica se a string não é vazia
     if (str.length === 0) {
         return str;
     }
 
-    // Capitaliza o primeiro caractere e concatena o restante da string
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 

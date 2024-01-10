@@ -1,6 +1,7 @@
-
+// Objeto PokeApi com funções para buscar dados de Pokémon
 const pokeApi = {}
 
+// Função para converter detalhes do PokeApi em objeto Pokémon
 function convertPokeApiDetailToPokemon(pokeDetail) {
     const pokemon = new Pokemon()
     pokemon.number = pokeDetail.id
@@ -16,7 +17,7 @@ function convertPokeApiDetailToPokemon(pokeDetail) {
 
     return pokemon
 }
-
+// Função para obter detalhes do Pokémon do PokeApi
 pokeApi.getPokemonDetail = (pokemon) => {
     return fetch(pokemon.url)
         .then((response) => response.json())
